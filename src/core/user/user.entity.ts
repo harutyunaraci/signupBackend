@@ -9,7 +9,7 @@ import {
 import {
   generatePasswordSalt,
   generateBcryptHash,
-} from '../../common/src/hash';
+} from '../../common/utils/hash';
 import { USER_ROLE } from './enum/user-role.enum';
 
 @Entity({ name: 'user' })
@@ -20,6 +20,9 @@ export class UserEntity extends BaseEntity {
 
   @Column({ unique: true })
   login: string;
+
+  @Column({ unique: true })
+  nickname: string;
 
   @Column({ nullable: false })
   password: string;
@@ -44,9 +47,5 @@ export class UserEntity extends BaseEntity {
     const salt = await generatePasswordSalt(password);
     const hashPassword = generateBcryptHash(password, salt);
     return this.password === hashPassword;
-  }
-
-  isConfirm(): boolean {
-    return true;
   }
 }

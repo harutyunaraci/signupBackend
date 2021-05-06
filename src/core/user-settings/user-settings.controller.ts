@@ -16,7 +16,7 @@ import { UserSettingsUpdatePasswordDto } from './dto/user-settings-update-passwo
 export class UserSettingsController {
   constructor(private userSettingsService: UserSettingsService) {}
 
-  @Patch('/password')
+  @Patch('/password/:adminId')
   @UseGuards(AuthGuard(), AccountGuard)
   updatePassword(
     @Body(ValidationPipe)

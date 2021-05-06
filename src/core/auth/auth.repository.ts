@@ -16,7 +16,7 @@ export class AuthRepository extends Repository<UserEntity> {
 
     const user: UserEntity = this.create();
 
-    user.login = login.toLowerCase();
+    user.login = login;
     user.password = await UserEntity.hashPassword(password);
 
     try {
@@ -35,7 +35,7 @@ export class AuthRepository extends Repository<UserEntity> {
     const { login, password } = userLoginDto;
 
     const user = await this.findOne({
-      where: [{ login: login.toLowerCase() }],
+      where: [{ login }],
     });
     if (user === undefined) {
       throw new BadRequestException(AUTH_ERROR.COULDNT_FOUND_USER);
