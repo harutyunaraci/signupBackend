@@ -4,6 +4,7 @@ import { UserEntity } from '../core/user/user.entity';
 
 const DATABASE_CONFIG = config.get('DATABASE');
 
+
 export const ApiEntities = [UserEntity];
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
