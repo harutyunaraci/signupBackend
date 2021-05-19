@@ -1,12 +1,12 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { UsersService } from './user.service'
-import { UserEntity } from './user.entity'
+import { UserDataDto } from './dto/allusers.dto'
 
 @Controller('users')
 export class UserController {
   constructor(private readonly UsersService: UsersService) {}
   @Get('userlist')
-  getAllUsers(): Promise<UserEntity[]> {
+  getAllUsers(): Promise<UserDataDto[]> {
     return this.UsersService.findAll();
   }
 }

@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from './user.entity';
+import { UserDataDto } from './dto/allusers.dto'
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class UsersService {
@@ -10,7 +12,10 @@ export class UsersService {
     private usersRepository: Repository<UserEntity>,
   ) {}
 
-  findAll(): Promise<UserEntity[]> {
-    return this.usersRepository.find({ select: ["id", "login"] });
+  async findAll(): Promise<UserDataDto[]> {
+    const retrievedUserData = await this.usersRepository.find({ select: ["id", "login"] });
+    const requiredUserData = plainToClass(UserDataDto, retrievedUserData);
+    
+    return requiredUserData
   }
 }
